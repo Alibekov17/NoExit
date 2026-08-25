@@ -1,0 +1,104 @@
+/* Основной контейнер главной страницы */
+.main-page {
+  min-height: 100vh;
+  background-color: #121218;
+  color: #ffffff;
+  font-family: 'Inter', sans-serif;
+  box-sizing: border-box;
+}
+
+/* Секция контента с карточками */
+.content-section {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 30px 40px;
+}
+
+.section-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 24px;
+  letter-spacing: 0.5px;
+}
+
+/* Сетка карточек фильмов и мультиков */
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 24px;
+  width: 100%;
+}
+
+/* Карточка фильма */
+.movie-card {
+  background: #1a1a24;
+  border-radius: 14px;
+  overflow: hidden;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.movie-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(229, 9, 20, 0.5);
+  box-shadow: 0 10px 25px rgba(229, 9, 20, 0.2);
+}
+
+/* Постер фильма */
+.movie-poster {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+/* Информация о фильме внутри карточки */
+.movie-info {
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.movie-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-genre {
+  font-size: 13px;
+  color: #8f8f9d;
+}
+
+/* Текст загрузки и пустых результатов */
+.loading-text,
+.empty-text {
+  color: #8f8f9d;
+  font-size: 15px;
+  text-align: center;
+  padding: 40px 0;
+}
+
+/* Адаптивность для мобильных устройств */
+@media (max-width: 768px) {
+  .content-section {
+    padding: 20px 20px;
+  }
+  
+  .movies-grid {
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 16px;
+  }
+
+  .movie-poster {
+    height: 200px;
+  }
+}

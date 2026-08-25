@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <style>
+  /* --- ОСНОВНАЯ КАРТОЧКА КОКТЕЙЛЯ --- */
+.cocktail-detail-card {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  max-width: 950px;
+  margin: 40px auto;
+  background: #ffffff;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03);
+  overflow: hidden;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Блок с изображением напитка */
+.cocktail-image-block {
+  flex: 1 1 380px;
+  max-width: 100%;
+}
+
+.cocktail-image-block img {
+  width: 100%;
+  height: 100%;
+  min-height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Блок с контентом (включаем Flexbox для управления порядком) */
+.cocktail-info-block {
+  flex: 2 1 450px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* --- УПРАВЛЕНИЕ ПОРЯДКОМ ОТОБРАЖЕНИЯ (ORDER) --- */
+
+.cocktail-info-block h1 {
+  order: 1; /* 1. Название */
+  margin: 0 0 5px 0;
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: #1a1a1a;
+  letter-spacing: -0.5px;
+}
+
+.category-badge {
+  order: 2; /* 2. Бэйджи сразу под названием */
+  margin: 0 0 25px 0;
+  display: flex;
+  gap: 8px;
+}
+
+/* Заголовок "Ингредиенты" и сама сетка */
+.cocktail-info-block h3:nth-of-type(1),
+.ingredients-grid {
+  order: 3; /* 3. Ингредиенты */
+}
+
+/* Заголовок "Инструкция" и само описание */
+.cocktail-info-block h3:nth-of-type(2),
+.instructions {
+  order: 4; /* 4. Описание (Description) */
+}
+
+.additional-info {
+  order: 5; /* 5. Дополнительная информация в самом низу */
+  margin-top: 25px;
+  font-size: 0.9rem;
+  color: #a4b0be;
+}
+
+/* --- СТИЛИЗАЦИЯ ЭЛЕМЕНТОВ --- */
+
+.cocktail-info-block h3 {
+  margin: 25px 0 15px 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #2d3436;
+  border-bottom: 2px solid #f1f2f6;
+  padding-bottom: 8px;
+}
+
+.category-badge span {
+  background: #f1f2f6;
+  color: #57606f;
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Сетка ингредиентов */
+.ingredients-grid {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.ingredient-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8f9fa;
+  padding: 10px 14px;
+  border-radius: 12px;
+  border: 1px solid #eef2f5;
+  transition: background 0.2s ease;
+}
+
+.ingredient-item:hover {
+  background: #f1f2f6;
+}
+
+.ingredient-img {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 4px;
+  border: 1px solid #eef2f5;
+  flex-shrink: 0;
+}
+
+.ingredient-info {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.ingredient-name {
+  font-weight: 600;
+  color: #2d3436;
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.ingredient-measure {
+  color: #747d8c;
+  font-size: 0.85rem;
+  margin-top: 2px;
+}
+
+/* Инструкция */
+.instructions {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #4f5d73;
+  background: #f9fbfd;
+  padding: 20px;
+  border-left: 4px solid #ff4757;
+  border-radius: 8px;
+  margin: 0;
+}
+
+.additional-info strong {
+  color: #57606f;
+}
+
+/* --- АДАПТИВНОСТЬ (МОБИЛЬНЫЕ УСТРОЙСТВА) --- */
+@media (max-width: 768px) {
+  .cocktail-detail-card {
+    flex-direction: column;
+    margin: 15px;
+    border-radius: 16px;
+  }
+
+  .cocktail-image-block img {
+    min-height: 280px;
+    height: 320px;
+  }
+
+  .cocktail-info-block {
+    padding: 25px;
+  }
+
+  .cocktail-info-block h1 {
+    font-size: 2rem;
+  }
+
+  .ingredients-grid {
+    grid-template-columns: 1fr;
+  }
+}
+</style></style>
+    <div class="details"></div>
+
+    <script src="details.js"></script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>F10 — Интернет-магазин</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">F10</a>
+            
+            <div class="search-bar">
+                <input type="text" placeholder="Искать на F10...">
+                <button class="btn-search">Найти</button>
+            </div>
+            
+            <button class="btn-add-product" id="openModalBtn">+ Добавить товар</button>
+        </div>
+    </header>
+
+    <main>
+        <h2 class="section-title">Популярные товары</h2>
+        
+        <div class="products-grid" id="productsGrid">
+            
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&q=80" alt="Наушники">
+                </div>
+                <div class="product-info">
+                    <div class="product-price">1 499 ₽</div>
+                    <div class="product-title">Беспроводные наушники F10 Pro с активным шумоподавлением</div>
+                    <button class="btn-cart">В корзину</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9?w=500&q=80" alt="Смартфон">
+                </div>
+                <div class="product-info">
+                    <div class="product-price">45 990 ₽</div>
+                    <div class="product-title">Смартфон F10 Ultra 256 ГБ, черный матовый</div>
+                    <button class="btn-cart">В корзину</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-image">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&q=80" alt="Часы">
+                </div>
+                <div class="product-info">
+                    <div class="product-price">2 300 ₽</div>
+                    <div class="product-title">Умный спортивный браслет F10 Band с трекером пульса</div>
+                    <button class="btn-cart">В корзину</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <div class="modal" id="addProductModal">
+        <div class="modal-content">
+            <span class="close-modal" id="closeModalBtn">&times;</span>
+            <h3>Добавление нового товара</h3>
+            <form id="addProductForm">
+                <div class="form-group">
+                    <label for="prodName">Название товара</label>
+                    <input type="text" id="prodName" placeholder="Например: Смарт-часы F10" required>
+                </div>
+                <div class="form-group">
+                    <label for="prodPrice">Цена (в рублях)</label>
+                    <input type="number" id="prodPrice" placeholder="Например: 2990" required>
+                </div>
+                <div class="form-group">
+                    <label for="prodImage">Фотография товара</label>
+                    <input type="file" id="prodImage" accept="image/*" required>
+                </div>
+                <button type="submit" class="btn-submit">Опубликовать на F10</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

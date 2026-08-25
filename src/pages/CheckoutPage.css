@@ -1,0 +1,138 @@
+.checkout-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(100vh - 70px);
+  background: #0f0f13;
+  padding: 20px;
+}
+
+.checkout-container {
+  width: 100%;
+  max-width: 450px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.back-btn {
+  background: transparent;
+  border: none;
+  color: #8f8f9d;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  align-self: flex-start;
+}
+
+.back-btn:hover {
+  color: #fff;
+}
+
+.checkout-header {
+  text-align: center;
+}
+
+.checkout-header h2 {
+  font-size: 20px;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.checkout-header p {
+  font-size: 13px;
+  color: #8f8f9d;
+}
+
+.checkout-price {
+  font-size: 32px;
+  font-weight: 800;
+  color: #e50914;
+  margin-top: 10px;
+}
+
+.qr-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  background: rgba(15, 15, 19, 0.6);
+  padding: 20px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.qr-mock {
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.qr-mock svg {
+  color: #000 !important;
+}
+
+.qr-hint {
+  font-size: 12px;
+  color: #8f8f9d;
+  text-align: center;
+}
+
+.payment-features {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  color: #8f8f9d;
+}
+
+.feat-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.pay-btn {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.success-box {
+  text-align: center;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.success-icon {
+  color: #4ade80;
+}
+
+.success-box h2 {
+  color: #fff;
+  font-size: 22px;
+}
+
+.success-box p {
+  color: #8f8f9d;
+  font-size: 14px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.spinner {
+  animation: spin 1s linear infinite;
+}

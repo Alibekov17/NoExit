@@ -1,0 +1,201 @@
+.profile-page {
+  padding: 40px 20px;
+  min-height: 100vh;
+  background: #0f0f13;
+  display: flex;
+  justify-content: center;
+}
+
+.profile-container {
+  width: 100%;
+  max-width: 650px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.ios-glass {
+  background: rgba(23, 23, 33, 0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.profile-hero {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profile-avatar {
+  width: 64px;
+  height: 64px;
+  background: rgba(229, 9, 20, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #e50914;
+}
+
+.profile-main-info h2 {
+  font-size: 18px;
+  color: #fff;
+  margin-bottom: 6px;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+}
+
+.status-badge.active {
+  background: rgba(74, 222, 128, 0.15);
+  color: #4ade80;
+}
+
+.status-badge.inactive {
+  background: rgba(229, 9, 20, 0.15);
+  color: #e50914;
+}
+
+.profile-section h3 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #fff;
+  margin-bottom: 15px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-size: 14px;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-label {
+  color: #8f8f9d;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.info-value {
+  color: #fff;
+  font-weight: 500;
+}
+
+.sub-buttons-grid {
+  display: flex;
+  gap: 12px;
+  margin-top: 15px;
+}
+
+.ios-btn-sub {
+  flex: 1;
+  background: #1e1e2c;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px;
+  border-radius: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.ios-btn-sub.highlight {
+  background: #e50914;
+  border-color: #e50914;
+}
+
+.ios-btn-sub:hover {
+  opacity: 0.9;
+}
+
+.payments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.payment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(15, 15, 19, 0.5);
+  padding: 12px 16px;
+  border-radius: 12px;
+  font-size: 14px;
+}
+
+.pay-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.pay-title {
+  color: #fff;
+  font-weight: 500;
+}
+
+.pay-date {
+  color: #8f8f9d;
+  font-size: 11px;
+}
+
+.pay-status.success {
+  color: #4ade80;
+  font-weight: 600;
+}
+
+.no-payments {
+  color: #8f8f9d;
+  font-size: 14px;
+}
+
+.ios-btn-logout {
+  background: rgba(229, 9, 20, 0.1);
+  color: #e50914;
+  border: 1px solid rgba(229, 9, 20, 0.2);
+  border-radius: 14px;
+  padding: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background 0.2s;
+}
+
+.ios-btn-logout:hover {
+  background: rgba(229, 9, 20, 0.2);
+}
+.sub-buttons-grid.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+
+@media (max-width: 480px) {
+  .sub-buttons-grid.grid-4 {
+    grid-template-columns: 1fr;
+  }
+}

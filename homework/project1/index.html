@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интернет-магазин</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">VOID</a>
+            
+            <button class="catalog-btn">
+                <i class="fa-solid fa-bars"></i> Каталог
+            </button>
+
+            <div class="search-container">
+                <select class="search-select">
+                    <option>Везде</option>
+                </select>
+                <input type="text" id="searchInput" class="search-input" placeholder="Искать на Ozon">
+                <button class="search-btn" id="searchBtn">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                </button>
+            </div>
+
+            <div class="header-icons">
+                <div class="icon-item">
+                    <i class="fa-regular fa-user"></i>
+                    <span>Войти</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-regular fa-heart"></i>
+                    <span>Избранное</span>
+                    <span class="badge" id="favBadge">0</span>
+                </div>
+                <div class="icon-item">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span>Корзина</span>
+                    <span class="badge" id="cartBadge">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-container">
+        <aside class="filters">
+            <div class="filter-section">
+                <h3>Бренды</h3>
+                <label class="filter-checkbox">
+                    <input type="checkbox" class="brand-filter" value="PUMA"> PUMA
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" class="brand-filter" value="Nike"> Nike
+                </label>
+                <label class="filter-checkbox">
+                    <input type="checkbox" class="brand-filter" value="Adidas"> Adidas
+                </label>
+            </div>
+        </aside>
+
+        <main class="products-grid" id="productsGrid"></main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

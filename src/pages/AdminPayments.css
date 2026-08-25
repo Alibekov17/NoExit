@@ -1,0 +1,77 @@
+.admin-payments-container {
+  padding: 30px;
+  color: #fff;
+  font-family: 'Inter', sans-serif;
+  background: #121218;
+  min-height: 100vh;
+}
+
+.admin-payments-container h2 {
+  margin-bottom: 25px;
+}
+
+.payments-table-wrapper {
+  overflow-x: auto;
+  background: #1a1a24;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.payments-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 14px;
+}
+
+.payments-table th, .payments-table td {
+  padding: 15px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+
+.payments-table th {
+  background: rgba(0,0,0,0.2);
+  color: #8f8f9d;
+  font-weight: 600;
+}
+
+.receipt-link {
+  color: #007aff;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.receipt-link:hover {
+  text-decoration: underline;
+}
+
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.status-badge.pending { background: rgba(255, 193, 7, 0.2); color: #ffc107; }
+.status-badge.approved { background: rgba(40, 167, 69, 0.2); color: #28a745; }
+.status-badge.rejected { background: rgba(220, 53, 69, 0.2); color: #dc3545; }
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.approve-btn, .reject-btn {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.approve-btn { background: #28a745; color: white; }
+.approve-btn:hover { background: #218838; }
+
+.reject-btn { background: #dc3545; color: white; }
+.reject-btn:hover { background: #c82333; }

@@ -1,0 +1,133 @@
+/* Главный контейнер баннера: компактный размер, закругленные углы и темная тема iOS */
+.home-banner {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  padding: 0 8%;
+  box-sizing: border-box;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  overflow: hidden;
+  font-family: 'Inter', sans-serif;
+  color: #f5f5f7;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  margin-bottom: 30px;
+}
+
+/* Темное глубокое градиентное затемнение фона */
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, rgba(18, 18, 24, 0.95) 15%, rgba(18, 18, 24, 0.75) 50%, rgba(18, 18, 24, 0.3) 100%);
+  z-index: 1;
+}
+
+/* Контент баннера с анимацией */
+.banner-content {
+  position: relative;
+  z-index: 2;
+  max-width: 520px;
+  animation: bannerFadeZoom 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes bannerFadeZoom {
+  0% {
+    opacity: 0;
+    transform: scale(0.95) translateY(15px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.banner-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin: 0 0 16px 0;
+  line-height: 1.1;
+  letter-spacing: -1px;
+  color: #ffffff;
+}
+
+/* Описание */
+.banner-desc {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #a1a1a6;
+  margin-bottom: 28px;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* Кнопка Трейлера */
+.trailer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #0a84ff; /* Яркий синий цвет для темной темы iOS */
+  color: white;
+  padding: 12px 26px;
+  border-radius: 14px;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(10, 132, 255, 0.4);
+}
+
+.trailer-btn:hover {
+  background-color: #0071e3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(10, 132, 255, 0.6);
+}
+
+/* Индикаторы слайдов */
+.banner-indicators {
+  position: absolute;
+  right: 40px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.indicator-dot {
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  color: #f5f5f7;
+  font-weight: 700;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.indicator-dot:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.indicator-dot.active {
+  background: #0a84ff;
+  border-color: #0a84ff;
+  color: #fff;
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.5);
+}

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  
+    <style>
+        
+  /* Контейнер для карточек (адаптивная сетка) */
+.drinks {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+/* Стили для самой карточки */
+.drinks > div {
+  background-color: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  padding-bottom: 15px;
+
+  /* Главное для анимации: плавный переход всех свойств за 0.3 секунды */
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Стили для изображений внутри карточки */
+.drinks img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover; /* Чтобы картинки не искажались */
+  display: block;
+}
+
+/* Стили для ссылок (названий коктейлей) */
+.drinks a {
+  display: inline-block;
+  margin-top: 12px;
+  color: #333;
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+/* --- ЭФФЕКТЫ ПРИ НАВЕДЕНИИ (HOVER) --- */
+
+/* Карточка приподнимается и тень становится глубже */
+.drinks > div:hover {
+  transform: translateY(-8px); /* Смещение вверх */
+  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.15); /* Более мягкая и глубокая тень */
+}
+
+/* Ссылка меняет цвет при наведении на неё */
+.drinks a:hover {
+  color: #ff4757; /* Цвет можно поменять на свой */
+}
+
+    </style>
+<!-- fetch -->
+
+    <div class="drinks"></div>
+
+
+    <script src="app.js"></script>
+</body>
+</html>

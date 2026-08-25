@@ -1,0 +1,77 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+}
+
+.app-container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* Пример фона, похожего на скриншот (неоновый/темный градиент) */
+.hero-section {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #0a0a16 0%, #1a0b2e 50%, #051622 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+  padding-top: 70px; /* Отступ сверху, чтобы контент не прятался под фиксированным хедером */
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  margin-bottom: 10px;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: rgba(255, 255, 255, 0.7);
+}
+/* Шапка и основной контейнер сайта */
+.site-header,
+.main-content-wrapper {
+  transition: margin-left 0.3s cubic-bezier(0.4, 0, 0.2, 1), width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Когда сайдбар закрыт (видна только узкая часть с иконками, например, 76px) */
+.site-header,
+.main-content-wrapper {
+  margin-left: 76px;
+  width: calc(100% - 76px);
+}
+
+/* Когда сайдбар полностью открыт (например, ширина 240px) */
+/* Добавьте класс .sidebar-is-open к вашему корневому контейнеру, когда меню раскрыто */
+.app-container.sidebar-is-open .site-header,
+.app-container.sidebar-is-open .main-content-wrapper {
+  margin-left: 240px;
+  width: calc(100% - 240px);
+}
+body {
+  margin: 0;
+  background-color: #0f0f13;
+  color: #fff;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Основной контент смещен вправо от сайдбара (76px) и вниз от шапки (70px) */
+.main-content {
+  margin-top: 70px;
+  margin-left: 76px;
+  padding: 30px;
+  width: calc(100% - 76px);
+  box-sizing: border-box;
+}

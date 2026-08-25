@@ -1,0 +1,65 @@
+.sidebar-left-hover {
+  position: fixed;
+  top: 70px; /* Начинается ниже шапки */
+  left: 0;
+  height: calc(100vh - 70px);
+  width: 76px; /* В закрытом состоянии видны только иконки */
+  background-color: #171721;
+  border-right: 1px solid #2a2a3c;
+  z-index: 999;
+  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-x: hidden;
+  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.4);
+}
+
+/* При наведении мыши панель плавно расширяется */
+.sidebar-left-hover:hover {
+  width: 240px;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  width: 240px;
+  height: 100%;
+  padding: 20px 0;
+}
+
+.sidebar-links {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.sidebar-item {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 26px;
+  color: #9494a0;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.2s, color 0.2s;
+}
+
+.sidebar-item:hover {
+  background-color: rgba(229, 9, 20, 0.1);
+  color: #fff;
+}
+
+.nav-text {
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+/* Показываем текст только при наведении */
+.sidebar-left-hover:hover .nav-text {
+  opacity: 1;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background-color: #2a2a3c;
+  margin: 10px 20px;
+}
