@@ -455,6 +455,47 @@ const AdminPage = () => {
                   <input type="text" placeholder="Фантастика" value={movieForm.genre} onChange={e => setMovieForm({ ...movieForm, genre: e.target.value })} />
                 </div>
 
+                <div className="field-block">
+                  <label>Рейтинг (например, IMDb)</label>
+                  <input type="text" placeholder="7.8" value={movieForm.rating} onChange={e => setMovieForm({ ...movieForm, rating: e.target.value })} />
+                </div>
+
+                <div className="field-block">
+                  <label>Rotten Tomatoes (%)</label>
+                  <input type="text" placeholder="85%" value={movieForm.rotten} onChange={e => setMovieForm({ ...movieForm, rotten: e.target.value })} />
+                </div>
+
+                <div className="field-block">
+                  <label>Актёры</label>
+                  <input type="text" placeholder="Иван Иванов, Пётр Петров" value={movieForm.cast_members} onChange={e => setMovieForm({ ...movieForm, cast_members: e.target.value })} />
+                </div>
+
+                <div className="field-block">
+                  <label>Продюсер / режиссёр</label>
+                  <input type="text" placeholder="Имя Фамилия" value={movieForm.producer} onChange={e => setMovieForm({ ...movieForm, producer: e.target.value })} />
+                </div>
+
+                <div className="field-block">
+                  <label>Длительность</label>
+                  <input type="text" placeholder="120 мин" value={movieForm.duration} onChange={e => setMovieForm({ ...movieForm, duration: e.target.value })} />
+                </div>
+
+                <div className="field-block">
+                  <label>Страна</label>
+                  <input type="text" placeholder="США" value={movieForm.country} onChange={e => setMovieForm({ ...movieForm, country: e.target.value })} />
+                </div>
+
+                <div className="field-block">
+                  <label>Возрастной рейтинг</label>
+                  <select value={movieForm.age_rating} onChange={e => setMovieForm({ ...movieForm, age_rating: e.target.value })} style={{ background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.1)', padding: '10px', borderRadius: '8px', color: '#fff', width: '100%' }}>
+                    <option value="0+">0+</option>
+                    <option value="6+">6+</option>
+                    <option value="12+">12+</option>
+                    <option value="16+">16+</option>
+                    <option value="18+">18+</option>
+                  </select>
+                </div>
+
                 <div className="field-block" style={{ gridColumn: '1 / -1', background: 'rgba(255,255,255,0.02)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', alignItems: 'center' }}>
                     <label style={{ fontSize: '13px', fontWeight: '600' }}>Постер фильма</label>
@@ -474,6 +515,41 @@ const AdminPage = () => {
                 <div className="field-block full-width">
                   <label>Описание</label>
                   <textarea rows="3" placeholder="Описание..." value={movieForm.description} onChange={e => setMovieForm({ ...movieForm, description: e.target.value })}></textarea>
+                </div>
+
+                <div className="field-block" style={{ gridColumn: '1 / -1', background: 'rgba(255,255,255,0.02)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', alignItems: 'center' }}>
+                    <label style={{ fontSize: '13px', fontWeight: '600' }}>Трейлер</label>
+                    <div style={{ display: 'flex', gap: '5px' }}>
+                      <button type="button" onClick={() => setTrailerSourceType('file')} style={{ background: trailerSourceType === 'file' ? '#0a84ff' : 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '3px 8px', borderRadius: '4px', fontSize: '11px', cursor: 'pointer' }}>С файла</button>
+                      <button type="button" onClick={() => setTrailerSourceType('url')} style={{ background: trailerSourceType === 'url' ? '#0a84ff' : 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '3px 8px', borderRadius: '4px', fontSize: '11px', cursor: 'pointer' }}>По ссылке</button>
+                    </div>
+                  </div>
+
+                  {trailerSourceType === 'file' ? (
+                    <input type="file" accept="video/*" onChange={e => setTrailerFile(e.target.files[0])} />
+                  ) : (
+                    <input type="url" placeholder="https://www.youtube.com/watch?v=... или прямая ссылка" value={movieForm.trailer_url} onChange={e => setMovieForm({ ...movieForm, trailer_url: e.target.value })} />
+                  )}
+                  {trailerSourceType === 'tmdb' && (
+                    <p style={{ fontSize: '11px', color: '#8e8e93', margin: '6px 0 0 0' }}>Трейлер подставлен автоматически из TMDb.</p>
+                  )}
+                </div>
+
+                <div className="field-block" style={{ gridColumn: '1 / -1', background: 'rgba(255,255,255,0.02)', padding: '12px', borderRadius: '8px', border: '1px solid rgba(255,255,255,0.05)' }}>
+                  <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '8px', alignItems: 'center' }}>
+                    <label style={{ fontSize: '13px', fontWeight: '600' }}>Полный фильм (видео)</label>
+                    <div style={{ display: 'flex', gap: '5px' }}>
+                      <button type="button" onClick={() => setVideoSourceType('file')} style={{ background: videoSourceType === 'file' ? '#0a84ff' : 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '3px 8px', borderRadius: '4px', fontSize: '11px', cursor: 'pointer' }}>С файла</button>
+                      <button type="button" onClick={() => setVideoSourceType('url')} style={{ background: videoSourceType === 'url' ? '#0a84ff' : 'transparent', color: '#fff', border: '1px solid rgba(255,255,255,0.2)', padding: '3px 8px', borderRadius: '4px', fontSize: '11px', cursor: 'pointer' }}>По ссылке</button>
+                    </div>
+                  </div>
+
+                  {videoSourceType === 'file' ? (
+                    <input type="file" accept="video/*" onChange={e => setVideoFile(e.target.files[0])} />
+                  ) : (
+                    <input type="url" placeholder="https://... (прямая ссылка на видеофайл)" value={movieForm.video_url} onChange={e => setMovieForm({ ...movieForm, video_url: e.target.value })} />
+                  )}
                 </div>
               </div>
 
