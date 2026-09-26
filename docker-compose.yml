@@ -1,0 +1,13 @@
+services:
+  noexit:
+    build:
+      context: .
+    container_name: noexit-app
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "wget -q --spider http://localhost/ || exit 1"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

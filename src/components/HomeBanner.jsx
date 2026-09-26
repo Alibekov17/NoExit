@@ -3,19 +3,48 @@ import { useNavigate } from 'react-router-dom';
 import { supabase } from '../supabaseClient';
 import './HomeBanner.css';
 
+const fallbackBanners = [
+  {
+    id: 'fallback-1',
+    title: 'NO EXIT — Новый сезон кино',
+    description: 'Популярные премьеры, блокбастеры и свежие русские релизы в одном каталоге.',
+    image: 'https://images.unsplash.com/photo-1517604931442-7e0c8ed2963c?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    id: 'fallback-2',
+    title: 'Человек-паук: Новый день',
+    description: 'Новый герой, новые приключения и яркая русская локализация прямо в каталоге.',
+    image: 'https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200&q=80'
+  },
+  {
+    id: 'fallback-3',
+    title: 'Лето киношных премьер',
+    description: 'Смотрите свежие фильмы, боевики, фантастику и мультфильмы без задержек.',
+    image: 'https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=1200&q=80'
+  }
+];
+
 const HomeBanner = () => {
-  const [banners, setBanners] = useState([]);
+  const [banners, setBanners] = useState(fallbackBanners);
   const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const { data, error } = await supabase.from('banners').select('*').limit(5);
+        if (!error && Array.isArray(data) && data.length > 0) {
+          setBanners(data);
+          return;
+        }
+      } catch (error) {
+        // offline/local fallback is used below
+      }
+      setBanners(fallbackBanners);
+    };
+
     fetchBanners();
   }, []);
-
-  const fetchBanners = async () => {
-    const { data, error } = await supabase.from('banners').select('*');
-    if (!error && data) setBanners(data);
-  };
 
   useEffect(() => {
     if (banners.length === 0) return;
@@ -28,6 +57,11 @@ const HomeBanner = () => {
   const currentBanner = banners[currentIndex] || banners[0];
 
   const handleWatchClick = () => {
+    if (currentBanner?.id && currentBanner.id.startsWith('fallback')) {
+      navigate('/catalog');
+      return;
+    }
+
     if (currentBanner?.id) {
       navigate(`/movie/${currentBanner.id}`);
     }

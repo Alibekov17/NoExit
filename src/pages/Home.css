@@ -1,83 +1,293 @@
-/* Уменьшенный компактный баннер */
-.hero-slider {
-  height: 320px;
+.home-page {
+  width: 100%;
+  color: #fff;
+}
+
+.hero-netflix {
+  position: relative;
+  min-height: 520px;
+  display: flex;
+  align-items: flex-end;
+  padding: 42px 36px 34px;
   background-size: cover;
   background-position: center;
+  border-radius: 22px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+
+.hero-netflix__content {
   position: relative;
-  display: flex;
-  align-items: center;
-  padding: 0 40px;
-  border-radius: 12px;
-  max-width: 1200px;
-  margin: 20px auto 0 auto;
-}
-
-.hero-content {
-  max-width: 600px;
   z-index: 2;
+  max-width: 620px;
 }
 
-.hero-genre {
-  background-color: #e50914;
-  color: #fff;
-  padding: 4px 10px;
-  font-size: 12px;
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(233, 34, 87, 0.22);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  color: #ffd6d9;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  font-weight: 700;
+  margin-bottom: 18px;
+}
+
+.hero-netflix h1 {
+  margin: 0;
+  font-size: clamp(36px, 4vw, 72px);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.hero-subtitle {
+  margin: 12px 0 0;
+  color: #ffd2d2;
+  font-size: 18px;
   font-weight: 600;
-  border-radius: 4px;
-}
-
-.hero-slider h1 {
-  font-size: 26px;
-  font-weight: 800;
-  color: #fff;
-  margin: 10px 0;
 }
 
 .hero-description {
-  font-size: 13px;
-  color: #bbb;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  margin-bottom: 15px;
+  margin-top: 14px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82);
+  max-width: 500px;
 }
 
-.watch-btn {
+.hero-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 22px;
+}
+
+.hero-button {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
-  background: #e50914;
-  color: #fff;
-  padding: 8px 18px;
-  border-radius: 6px;
-  font-weight: 600;
+  padding: 14px 22px;
+  border-radius: 12px;
   text-decoration: none;
-  font-size: 14px;
-  transition: background 0.2s;
+  font-weight: 700;
+  transition: transform 0.25s ease, opacity 0.25s ease;
 }
 
-.watch-btn:hover {
-  background: #f40612;
+.hero-button:hover {
+  transform: translateY(-1px);
 }
 
-.slider-arrow {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
+.hero-button--primary {
+  background: linear-gradient(135deg, #ff4d6d, #ff6b35);
   color: #fff;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
+}
+
+.hero-button--ghost {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+}
+
+.hero-dots {
+  position: absolute;
+  right: 30px;
+  bottom: 26px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  z-index: 2;
+}
+
+.hero-dots .dot {
+  width: 10px;
+  height: 10px;
   border-radius: 50%;
-  z-index: 3;
-  transition: background 0.2s;
+  border: none;
+  background: rgba(255, 255, 255, 0.42);
+  cursor: pointer;
+  transition: all 0.2s ease;
 }
 
-.slider-arrow:hover {
-  background: rgba(0, 0, 0, 0.8);
+.hero-dots .dot.active {
+  width: 30px;
+  border-radius: 999px;
+  background: #fff;
 }
 
-.slider-arrow.prev { left: 15px; }
-.slider-arrow.next { right: 15px; }
+.catalog-shell {
+  max-width: 1280px;
+  margin: 28px auto 0;
+  padding: 0 20px 80px;
+}
+
+.content-row {
+  margin-bottom: 28px;
+}
+
+.row-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.row-header h2 {
+  margin: 0;
+  font-size: clamp(22px, 2vw, 30px);
+}
+
+.see-all {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #d5d9e5;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.movies-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.movies-grid--compact {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.movie-poster-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.movie-poster-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(255, 255, 255, 0.18);
+}
+
+.poster-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.poster-wrapper img {
+  display: block;
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+}
+
+.premium-badge {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 5px 8px;
+  border-radius: 999px;
+  background: rgba(255, 195, 0, 0.18);
+  color: #ffd76b;
+  font-size: 10px;
+  font-weight: 800;
+  border: 1px solid rgba(255, 195, 0, 0.32);
+}
+
+.watchlist-button {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  width: 34px;
+  height: 34px;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+}
+
+.poster-info {
+  padding: 14px 12px 16px;
+  background: linear-gradient(180deg, rgba(8, 10, 15, 0.2), rgba(8, 10, 15, 0.9));
+}
+
+.poster-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.poster-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: #ffdc73;
+  font-weight: 700;
+}
+
+.poster-info h3 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.35;
+}
+
+.poster-info p {
+  margin: 8px 0 0;
+  color: rgba(255, 255, 255, 0.72);
+  font-size: 12px;
+}
+
+.poster-actions {
+  margin-top: 12px;
+}
+
+.poster-watch-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #ff4d6d, #ff6b35);
+  color: #fff;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.loading-box {
+  padding: 42px 16px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+@media (max-width: 768px) {
+  .hero-netflix {
+    min-height: 420px;
+    padding: 26px 20px 24px;
+  }
+
+  .hero-actions {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-button {
+    width: 100%;
+  }
+
+  .catalog-shell {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+}

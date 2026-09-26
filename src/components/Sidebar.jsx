@@ -12,7 +12,7 @@ const Sidebar = () => {
             <Home size={20} />
             <span className="nav-text">Главная</span>
           </Link>
-          <Link to="/Catalog" className="sidebar-item" title="Каталог">
+          <Link to="/catalog" className="sidebar-item" title="Каталог">
             <Film size={20} />
             <span className="nav-text">Каталог</span>
           </Link>

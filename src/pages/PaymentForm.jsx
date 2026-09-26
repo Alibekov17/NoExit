@@ -32,7 +32,10 @@ const PaymentForm = () => {
     try {
       // 1. Загружаем файл чека в хранилище Supabase (Storage)
       const fileExt = receiptFile.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
+      const uniqueSuffix = typeof crypto !== 'undefined' && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      const fileName = `${uniqueSuffix}.${fileExt}`;
       const filePath = `receipts/${fileName}`;
 
       const { error: uploadError } = await supabase.storage

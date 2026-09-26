@@ -1,16 +1,58 @@
-# React + Vite
+# NOEXIT
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Локально-работающий кино-сайт в стиле Netflix/Kinopoisk с адаптивным интерфейсом, локальным каталогом фильмов, премиум-режимом, безопасной работой без внешних ключей и поддержкой Supabase/TMDb при наличии переменных окружения.
 
-Currently, two official plugins are available:
+## Что уже есть
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- стартовая анимация с логотипом NO EXIT
+- главная страница с hero-блоком и секциями: Топ 10, Новинки, Мой список
+- детальная страница фильма с локальным премиум-гейтом
+- локальное хранение каталога и списка избранного в localStorage
+- админ-панель с сохранением контента в локальный режим
+- политика конфиденциальности
+- безопасная загрузка env-переменных без утечки секретов
 
-## React Compiler
+## Быстрый запуск
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+1. Установите зависимости:
+   npm install
+2. Запустите проект:
+   npm run dev
+3. Для продакшн сборки:
+   npm run build
 
-## Expanding the ESLint configuration
+## Переменные окружения
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+Создайте файл `.env` на основе `.env.example` и заполните значения:
+
+- `VITE_SUPABASE_URL`
+- `VITE_SUPABASE_ANON_KEY`
+- `VITE_TMDB_API_KEY`
+
+Если переменные не заданы, проект продолжает работать в локальном демо-режиме без падений.
+
+## Безопасность
+
+- ключи и секреты хранятся только в `.env`
+- `.env` добавлен в `.gitignore`
+- проект не зависит от внешних API для базовой работы
+
+## Spec Kit
+
+В проекте подключён GitHub Spec Kit для SDD-процесса:
+
+- `/speckit-constitution`
+- `/speckit-specify`
+- `/speckit-plan`
+- `/speckit-tasks`
+- `/speckit-implement`
+- `/speckit-converge`
+
+## Stack
+
+- React 19
+- Vite
+- React Router
+- Lucide React
+- Supabase (optional)
+- localStorage-first data model

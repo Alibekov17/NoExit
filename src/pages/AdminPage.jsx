@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { Film, Image as ImageIcon, Users, Trash2, Edit, CheckCircle, XCircle, Shield, Upload, DollarSign, Bell, Eye, X, QrCode, Search, Video, Clock, Globe2, ShieldAlert } from 'lucide-react';
 import { searchMovies, fetchMovieSystemServiceDetails } from '../tmdbApi';
+import { getMovieCatalog, saveMovieCatalog } from '../data/movieCatalog';
 import './AdminPage.css';
 
 const AdminPage = () => {
@@ -45,6 +46,9 @@ const AdminPage = () => {
 
   // Состояние для просмотра чека в полном размере
   const [previewReceiptUrl, setPreviewReceiptUrl] = useState(null);
+  const localIdRef = useRef(1);
+
+  const shouldUseLocalMode = !import.meta.env.VITE_SUPABASE_URL || !import.meta.env.VITE_SUPABASE_ANON_KEY;
 
   useEffect(() => {
     fetchData();
@@ -74,8 +78,14 @@ const AdminPage = () => {
   };
 
   const fetchData = async () => {
+    if (shouldUseLocalMode) {
+      setItems(getMovieCatalog());
+      return;
+    }
+
     const { data, error } = await supabase.from('banners').select('*').order('id', { ascending: false });
     if (!error && data) setItems(data);
+    else setItems(getMovieCatalog());
   };
 
   const fetchClients = async () => {
@@ -94,7 +104,7 @@ const AdminPage = () => {
       const { data } = await supabase.from('settings').select('value').eq('key', 'admin_qr_code').single();
       if (data && data.value) setAdminQrUrl(data.value);
     } catch (e) {
-      console.log('Используется дефолтный QR-код');
+      setAdminQrUrl('');
     }
   };
 
@@ -173,7 +183,10 @@ const AdminPage = () => {
   const uploadFileToStorage = async (file, folder) => {
     if (!file) return null;
     const fileExt = file.name.split('.').pop();
-    const fileName = `${Math.random().toString(36).substring(2)}_${Date.now()}.${fileExt}`;
+    const uniqueSuffix = typeof crypto !== 'undefined' && crypto.randomUUID
+      ? crypto.randomUUID()
+      : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+    const fileName = `${uniqueSuffix}.${fileExt}`;
     const filePath = `${folder}/${fileName}`;
 
     const { error: uploadError } = await supabase.storage.from('movie-storage').upload(filePath, file);
@@ -210,6 +223,22 @@ const AdminPage = () => {
 
       setUploadProgress('Сохранение...');
       const payload = { ...movieForm, image: imageUrl, trailer_url: trailerUrl, video_url: videoUrl };
+
+      if (shouldUseLocalMode) {
+        const current = getMovieCatalog();
+        const nextLocalId = `local-${localIdRef.current++}`;
+        const list = editingId
+          ? current.map(item => item.id === editingId ? { ...item, ...payload, id: editingId } : item)
+          : [{ ...payload, id: nextLocalId }, ...current];
+
+        saveMovieCatalog(list);
+        setItems(list);
+        setEditingId(null);
+        alert(editingId ? 'Фильм обновлён локально!' : 'Фильм добавлен локально!');
+        resetForm(activeTab);
+        fetchData();
+        return;
+      }
 
       if (editingId) {
         const { error } = await supabase.from('banners').update(payload).eq('id', editingId);

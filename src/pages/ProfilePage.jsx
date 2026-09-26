@@ -115,7 +115,7 @@ const ProfilePage = () => {
         setQrCodeUrl(data.value);
       }
     } catch (err) {
-      console.log('Используется стандартный QR-код системы');
+      setQrCodeUrl('');
     }
   };
 
@@ -141,7 +141,10 @@ const ProfilePage = () => {
 
     try {
       const fileExt = receiptFile.name.split('.').pop();
-      const fileName = `${Math.random()}.${fileExt}`;
+      const uniqueSuffix = typeof crypto !== 'undefined' && crypto.randomUUID
+        ? crypto.randomUUID()
+        : `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+      const fileName = `${uniqueSuffix}.${fileExt}`;
       const filePath = `receipts/${fileName}`;
 
       const { error: uploadError } = await supabase.storage

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { Search, Filter, Star, Play, Film, Calendar, Globe, Award, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { getMovieCatalog } from '../data/movieCatalog';
 import './Catalog.css';
 
 const Catalog = () => {
@@ -26,15 +27,23 @@ const Catalog = () => {
 
   const fetchCatalogMovies = async () => {
     setLoading(true);
-    // Загружаем абсолютно все фильмы из таблицы базы данных
-    const { data, error } = await supabase
-      .from('banners')
-      .select('*')
-      .order('id', { ascending: false });
 
-    if (!error && data) {
-      setMovies(data);
+    try {
+      const { data, error } = await supabase
+        .from('banners')
+        .select('*')
+        .order('id', { ascending: false });
+
+      if (!error && Array.isArray(data) && data.length > 0) {
+        setMovies(data);
+        setLoading(false);
+        return;
+      }
+    } catch (error) {
+      // fallback below
     }
+
+    setMovies(getMovieCatalog());
     setLoading(false);
   };
 

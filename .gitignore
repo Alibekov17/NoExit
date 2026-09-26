@@ -7,9 +7,19 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
-dist
+
+# Production builds
+/dist
 dist-ssr
+
+# Environment and secrets
+.env
+.env.*
+!.env.example
+
+# Local runtime files
 *.local
 
 # Editor directories and files
@@ -22,3 +32,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# OS and tool artifacts
+Thumbs.db
+coverage
+
