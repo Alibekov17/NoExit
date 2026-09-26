@@ -1,65 +1,93 @@
 .sidebar-left-hover {
   position: fixed;
-  top: 70px; /* Начинается ниже шапки */
+  top: 72px;
   left: 0;
-  height: calc(100vh - 70px);
-  width: 76px; /* В закрытом состоянии видны только иконки */
-  background-color: #171721;
-  border-right: 1px solid #2a2a3c;
-  z-index: 999;
-  transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  overflow-x: hidden;
-  box-shadow: 5px 0 20px rgba(0, 0, 0, 0.4);
-}
-
-/* При наведении мыши панель плавно расширяется */
-.sidebar-left-hover:hover {
-  width: 240px;
+  height: calc(100vh - 72px);
+  width: 220px;
+  background: rgba(20, 22, 31, 0.9);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 12px 0 30px rgba(0, 0, 0, 0.12);
+  z-index: 99;
+  transition: width 0.25s ease;
+  overflow: hidden;
 }
 
 .sidebar-content {
   display: flex;
   flex-direction: column;
-  width: 240px;
+  width: 220px;
   height: 100%;
-  padding: 20px 0;
+  padding: 18px 0;
 }
 
 .sidebar-links {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 8px;
 }
 
 .sidebar-item {
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 12px 26px;
-  color: #9494a0;
+  gap: 14px;
+  padding: 12px 18px;
+  color: #b7bac7;
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600;
   white-space: nowrap;
-  transition: background 0.2s, color 0.2s;
+  border-left: 2px solid transparent;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
 }
 
 .sidebar-item:hover {
-  background-color: rgba(229, 9, 20, 0.1);
+  background: rgba(229, 9, 20, 0.1);
+  border-left-color: #e50914;
   color: #fff;
 }
 
 .nav-text {
-  opacity: 0;
-  transition: opacity 0.2s ease;
-}
-
-/* Показываем текст только при наведении */
-.sidebar-left-hover:hover .nav-text {
   opacity: 1;
 }
 
 .sidebar-divider {
   height: 1px;
-  background-color: #2a2a3c;
-  margin: 10px 20px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 10px 18px;
+}
+
+@media (max-width: 720px) {
+  .sidebar-left-hover {
+    position: sticky;
+    top: 72px;
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: none;
+  }
+
+  .sidebar-content {
+    width: 100%;
+    padding: 10px 8px;
+  }
+
+  .sidebar-links {
+    flex-direction: row;
+    overflow-x: auto;
+    gap: 8px;
+    padding-bottom: 4px;
+  }
+
+  .sidebar-item {
+    min-width: max-content;
+    padding: 10px 12px;
+    border-left: none;
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+
+  .sidebar-divider {
+    display: none;
+  }
 }
