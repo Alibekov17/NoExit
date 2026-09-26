@@ -12,6 +12,7 @@ import CheckoutPage from './pages/CheckoutPage';
 import MainPage from './pages/MainPage';
 import PaymentForm from './pages/PaymentForm';
 import AdminPayments from './pages/AdminPayments';
+import AdminGate from './components/AdminGate';
 import Series from './pages/Series';
 import CartoonsPage from './pages/CartoonsPage';
 import HorrorPage from './pages/HorrorPage';
@@ -54,8 +55,8 @@ function App() {
               <Route path="/main" element={<MainPage />} />
               <Route path="/catalog" element={<Catalog />} />
               <Route path="/movie/:id" element={<MovieDetail />} />
-              <Route path="/admin" element={<AdminPage />} />
-              <Route path="/admin/payments" element={<AdminPayments />} />
+              <Route path="/admin" element={<AdminGate><AdminPage /></AdminGate>} />
+              <Route path="/admin/payments" element={<AdminGate><AdminPayments /></AdminGate>} />
               <Route path="/profile" element={<ProfilePage />} />
               <Route path="/auth" element={<AuthPage />} />
               <Route path="/checkout" element={<CheckoutPage />} />

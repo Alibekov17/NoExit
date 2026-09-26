@@ -34,6 +34,7 @@ export const createOrderWithCommission = async ({
     seller_uuid: sellerId,
     amount_to_add: sellerAmount,
   });
+  if (balanceError) throw balanceError;
 
   return order;
 };

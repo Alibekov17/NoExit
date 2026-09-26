@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../Supabase";
 import { Link } from "react-router-dom";
 
 export default function AdminPage() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [products, setProducts] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -26,18 +27,40 @@ export default function AdminPage() {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      fetchProducts();
-    }
+    if (!isAuthenticated) return;
+
+    let isActive = true;
+    const loadProducts = async () => {
+      const { data, error } = await supabase.from("products").select("*");
+      if (!error && isActive) setProducts(data || []);
+    };
+
+    void loadProducts();
+    return () => {
+      isActive = false;
+    };
   }, [isAuthenticated]);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (password === "admin123") {
-      setIsAuthenticated(true);
-    } else {
-      alert("Неверный пароль!");
+    const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+    if (error) {
+      alert("Не удалось войти. Проверьте учетные данные.");
+      return;
     }
+
+    if (data.user?.app_metadata?.role !== "admin") {
+      await supabase.auth.signOut();
+      alert("У этой учетной записи нет доступа администратора.");
+      return;
+    }
+
+    setIsAuthenticated(true);
+  };
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    setIsAuthenticated(false);
   };
 
   const handleInputChange = (e) => {
@@ -101,11 +124,21 @@ export default function AdminPage() {
         <form onSubmit={handleLogin} className="admin-login-card">
           <h2>🔒 Вход в админ-панель</h2>
           <input
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className="form-input"
+            autoComplete="username"
+            required
+          />
+          <input
             type="password"
-            placeholder="Введите пароль"
+            placeholder="Пароль"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="form-input"
+            autoComplete="current-password"
             required
           />
           <button type="submit" className="btn-stylish btn-stylish-primary btn-full">
@@ -130,7 +163,7 @@ export default function AdminPage() {
           <button
             className="btn-stylish btn-stylish-outline"
             style={{ marginLeft: "8px" }}
-            onClick={() => setIsAuthenticated(false)}
+            onClick={handleLogout}
           >
             Выйти
           </button>
@@ -159,13 +192,10 @@ export default function AdminPage() {
                 <td>{p.category}</td>
                 <td>{p.brand}</td>
                 <td>{p.price} сом</td>
-                
-                 
-                
-                 <button className="btn-small" onClick={() => handleEdit(p)}>✏️ </button>{" "}
+                <td>
+                  <button className="btn-small" onClick={() => handleEdit(p)}>✏️</button>{" "}
                   <button className="btn-small btn-danger" onClick={() => handleDelete(p.id)}>🗑️</button>
-                  
-                
+                </td>
               </tr>
             ))}
           </tbody>

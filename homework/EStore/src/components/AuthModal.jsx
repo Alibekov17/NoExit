@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { supabase } from "../Supabase";
 import { validateKGInn } from "../utils/validators";
 
@@ -40,7 +40,7 @@ export default function AuthModal({ isOpen, onClose, onSuccess }) {
     setLoading(true);
     try {
       // Отправка запроса в Edge Function Supabase для бота @estore_auth_bot
-      const { data, error } = await supabase.functions.invoke("send-telegram-otp", {
+      const { error } = await supabase.functions.invoke("send-telegram-otp", {
         body: { phone: cleanPhone },
       });
 

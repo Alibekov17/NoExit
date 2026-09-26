@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../Supabase";
 
 export default function AdminSellers() {
@@ -10,43 +10,46 @@ export default function AdminSellers() {
   const [loadingProducts, setLoadingProducts] = useState(false);
   const [error, setError] = useState("");
 
-  // 1. Загрузка всех продавцов из БД
   useEffect(() => {
-    fetchSellers();
+    let isActive = true;
+    const loadSellers = async () => {
+      try {
+        const { data, error: fetchError } = await supabase
+          .from("sellers")
+          .select(`
+            id,
+            user_id,
+            company_name,
+            inn_number,
+            document_type,
+            is_verified,
+            created_at,
+            profiles:user_id (
+              first_name,
+              last_name,
+              phone
+            )
+          `)
+          .order("created_at", { ascending: false });
+
+        if (fetchError) throw fetchError;
+        if (isActive) {
+          setSellers(data || []);
+          setError("");
+        }
+      } catch (err) {
+        console.error("Ошибка при загрузке продавцов:", err.message);
+        if (isActive) setError("Не удалось загрузить список продавцов");
+      } finally {
+        if (isActive) setLoadingSellers(false);
+      }
+    };
+
+    void loadSellers();
+    return () => {
+      isActive = false;
+    };
   }, []);
-
-  const fetchSellers = async () => {
-    setLoadingSellers(true);
-    setError("");
-    try {
-      // Получаем список всех продавцов вместе с их профилями
-      const { data, error } = await supabase
-        .from("sellers")
-        .select(`
-          id,
-          user_id,
-          company_name,
-          inn_number,
-          document_type,
-          is_verified,
-          created_at,
-          profiles:user_id (
-            first_name,
-            last_name,
-            phone
-          )
-        `)
-        .order("created_at", { ascending: false });
-
-      if (error) throw error;
-      setSellers(data || []);
-    } catch (err) {
-      console.error("Ошибка при загрузке продавцов:", err.message);
-      setError("Не удалось загрузить список продавцов");
-    } finally {
-      setLoadingSellers(false);
-    }
-  };
 
   // 2. Выбор продавца и загрузка его товаров
   const handleSelectSeller = async (seller) => {

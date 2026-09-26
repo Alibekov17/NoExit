@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { supabase } from "../Supabase";
 
 export default function PaymentModal({ isOpen, onClose, totalAmount, onSuccess }) {
@@ -16,27 +16,29 @@ export default function PaymentModal({ isOpen, onClose, totalAmount, onSuccess }
 
   // 1. Поиск и загрузка карт авторизованного пользователя
   useEffect(() => {
-    if (isOpen) {
-      fetchUserCards();
-    }
-  }, [isOpen]);
+    if (!isOpen) return;
 
-  const fetchUserCards = async () => {
-    const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    let isActive = true;
+    const loadUserCards = async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
 
-    const { data, error } = await supabase
-      .from("user_cards")
-      .select("*")
-      .eq("user_id", user.id);
+      const { data, error } = await supabase
+        .from("user_cards")
+        .select("*")
+        .eq("user_id", user.id);
 
-    if (!error && data) {
-      setSavedCards(data);
-      if (data.length > 0) {
-        setSelectedCardId(data[0].id); // По умолчанию выбираем первую карту
+      if (!error && data && isActive) {
+        setSavedCards(data);
+        if (data.length > 0) setSelectedCardId(data[0].id);
       }
-    }
-  };
+    };
+
+    void loadUserCards();
+    return () => {
+      isActive = false;
+    };
+  }, [isOpen]);
 
   // 2. Алгоритм проверки правильности номера карты (Формула Луна)
   const validateCardNumber = (number) => {

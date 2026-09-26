@@ -125,6 +125,7 @@ const hasRussianAudio = (movie) => {
 // Получение популярных фильмов с русской озвучкой
 export const fetchPopularMovies = async (lang = 'ru-RU') => {
   void lang;
+  if (!KINOPOISK_API_KEY) return fallbackMovies;
   try {
     const currentYear = new Date().getFullYear();
     const promises = [1, 2, 3].map(page => 
@@ -261,7 +262,7 @@ const formatMovieData = (movie) => {
 // Поиск фильмов с русской озвучкой
 export const searchMovies = async (query, lang = 'ru-RU') => {
   void lang;
-  if (!query || !query.trim()) return [];
+  if (!KINOPOISK_API_KEY || !query || !query.trim()) return [];
   try {
     const data = await requestJson(`${BASE_URL}/v2.1/films/search-by-keyword?keyword=${encodeURIComponent(query.trim())}&page=1`);
     
@@ -284,6 +285,7 @@ export const searchMovies = async (query, lang = 'ru-RU') => {
 // Получение деталей фильма
 export const fetchMovieSystemServiceDetails = async (kinopoiskId, lang = 'ru-RU') => {
   void lang;
+  if (!KINOPOISK_API_KEY) return null;
   try {
     const data = await requestJson(`${BASE_URL}/v2.2/films/${encodeURIComponent(kinopoiskId)}`);
     
@@ -328,6 +330,7 @@ export const fetchMovieSystemServiceDetails = async (kinopoiskId, lang = 'ru-RU'
 
 // Получение фильмов по фильтрам (только с русской озвучкой)
 export const fetchMoviesByFilters = async (filters = {}, page = 1) => {
+  if (!KINOPOISK_API_KEY) return [];
   try {
     const params = new URLSearchParams({
       page: page,
@@ -354,6 +357,7 @@ export const fetchMoviesByFilters = async (filters = {}, page = 1) => {
 
 // Получение российских фильмов
 export const fetchRussianMovies = async () => {
+  if (!KINOPOISK_API_KEY) return fallbackMovies;
   try {
     const currentYear = new Date().getFullYear();
     const data = await requestJson(`${BASE_URL}/v2.2/films?order=RATING&countries=1&yearFrom=${currentYear-5}&yearTo=${currentYear}&page=1`);

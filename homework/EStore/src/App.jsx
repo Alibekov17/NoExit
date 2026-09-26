@@ -1,10 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import { supabase } from "./Supabase";
 import ProductCard from "./components/ProductCard";
 import ProductModal from "./components/ProductModal";
 import AuthModal from "./components/AuthModal";
-import AdminSellers from './components/AdminSellers';
 import CartPage from "./pages/CartPage";
 import AdminPage from "./pages/AdminPage";
 import "./App.css";
@@ -52,16 +51,6 @@ export default function App() {
     setUser(null);
   };
 
-  // --- Загрузка товаров из базы ---
-  const fetchProducts = async () => {
-    let query = supabase.from("products").select("*");
-    if (category !== "all") query = query.eq("category", category);
-    if (brand) query = query.eq("brand", brand);
-
-    const { data, error } = await query;
-    if (!error) setProducts(data || []);
-  };
-
   // --- Загрузка корзины из базы ---
   const loadCart = async () => {
     const items = await fetchCartItems();
@@ -69,11 +58,33 @@ export default function App() {
   };
 
   useEffect(() => {
-    fetchProducts();
+    let isActive = true;
+    const loadProducts = async () => {
+      let query = supabase.from("products").select("*");
+      if (category !== "all") query = query.eq("category", category);
+      if (brand) query = query.eq("brand", brand);
+
+      const { data, error } = await query;
+      if (!error && isActive) setProducts(data || []);
+    };
+
+    void loadProducts();
+    return () => {
+      isActive = false;
+    };
   }, [category, brand]);
 
   useEffect(() => {
-    loadCart();
+    let isActive = true;
+    const loadInitialCart = async () => {
+      const items = await fetchCartItems();
+      if (isActive) setCart(items);
+    };
+
+    void loadInitialCart();
+    return () => {
+      isActive = false;
+    };
   }, []);
 
   // --- Обработка клика вне поиска ---

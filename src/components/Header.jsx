@@ -1,35 +1,34 @@
-import React, { useState, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { User } from 'lucide-react';
 import './Header.css';
 
 const Header = () => {
   const navigate = useNavigate();
-  const [clickCount, setClickCount] = useState(0);
+  const clickCountRef = useRef(0);
   const timeoutRef = useRef(null);
 
-  // Обработчик кликов: нужно нажать 5 раз
-  const handleLogoClick = (e) => {
-    e.preventDefault(); // отменяем стандартный переход по ссылке на время кликов
+  useEffect(() => () => window.clearTimeout(timeoutRef.current), []);
 
-    // Очищаем предыдущий таймер сброса
-    if (timeoutRef.current) {
-      clearTimeout(timeoutRef.current);
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    if (e.detail === 0) {
+      clickCountRef.current = 0;
+      navigate('/');
+      return;
     }
 
-    const nextCount = clickCount + 1;
+    window.clearTimeout(timeoutRef.current);
+    clickCountRef.current += 1;
 
-    if (nextCount >= 5) {
-      // Сбрасываем счетчик и переходим в админку
-      setClickCount(0);
+    if (clickCountRef.current >= 5) {
+      clickCountRef.current = 0;
       navigate('/admin');
     } else {
-      setClickCount(nextCount);
-      
-      // Если в течение 500мс нет новых кликов — сбрасываем счетчик
-      timeoutRef.current = setTimeout(() => {
-        setClickCount(0);
-      }, 500);
+      navigate('/');
+      timeoutRef.current = window.setTimeout(() => {
+        clickCountRef.current = 0;
+      }, 1400);
     }
   };
 

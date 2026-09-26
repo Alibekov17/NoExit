@@ -1,8 +1,5 @@
-import React, { useState } from 'react'
-
-// Конфигурация Supabase (укажите ваши данные)
-const SUPABASE_URL = 'https://whcrifhmmivpzwtswkff.supabase.co'
-const SUPABASE_ANON_KEY = 'sb_publishable_4IK7FOYxYe6AlZSStNWI2w_jg_sCcj4'
+import { useState } from 'react'
+import { supabase } from '../Supabase'
 
 export default function Auth() {
   const [phone, setPhone] = useState('')
@@ -10,28 +7,6 @@ export default function Auth() {
   const [step, setStep] = useState(1) // 1: Ввод телефона, 2: Ввод кода
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState({ text: '', type: '' }) // type: 'info' | 'error' | 'success'
-
-  // Вспомогательная функция для выполнения HTTP-запросов к REST API Supabase
-  const supabaseFetch = async (endpoint, options = {}) => {
-    const headers = {
-      'apikey': SUPABASE_ANON_KEY,
-      'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
-      'Content-Type': 'application/json',
-      ...options.headers,
-    }
-
-    const response = await fetch(`${SUPABASE_URL}${endpoint}`, {
-      ...options,
-      headers,
-    })
-
-    if (!response.ok) {
-      const errorData = await response.json().catch(() => ({}))
-      throw new Error(errorData.message || `Ошибка сервера: ${response.status}`)
-    }
-
-    return response.json()
-  }
 
   // 1. Отправка кода по номеру телефона через Telegram Edge Function
   const handleSendCode = async (e) => {
@@ -47,11 +22,10 @@ export default function Auth() {
     setMessage({ text: 'Отправляем код в Telegram...', type: 'info' })
 
     try {
-      // Вызов Edge Function через REST API
-      await supabaseFetch('/functions/v1/send-telegram-otp', {
-        method: 'POST',
-        body: JSON.stringify({ phone: cleanPhone })
+      const { error } = await supabase.functions.invoke('send-telegram-otp', {
+        body: { phone: cleanPhone },
       })
+      if (error) throw error
 
       setStep(2)
       setMessage({ text: 'Код отправлен в ваш Telegram!', type: 'success' })
@@ -76,25 +50,25 @@ export default function Auth() {
     setMessage({ text: 'Проверяем код...', type: 'info' })
 
     try {
-      // Ищем действующий (не истекший) код по номеру телефона через PostgREST API
-      const now = new Date().toISOString()
-      const otpData = await supabaseFetch(
-        `/rest/v1/otp_codes?phone_number=eq.${encodeURIComponent(cleanPhone)}&code=eq.${encodeURIComponent(code.trim())}&expires_at=gte.${now}&order=created_at.desc&limit=1`
-      )
+      const { data: otpData, error: otpError } = await supabase
+        .from('otp_codes')
+        .select('id')
+        .eq('phone_number', cleanPhone)
+        .eq('code', code.trim())
+        .gte('expires_at', new Date().toISOString())
+        .order('created_at', { ascending: false })
+        .limit(1)
+      if (otpError) throw otpError
 
       if (!otpData || otpData.length === 0) {
         setMessage({ text: 'Неверный или истекший код!', type: 'error' })
       } else {
-        // Регистрируем или обновляем пользователя в таблице profiles (UPSERT через Prefer header)
-        const profileResponse = await supabaseFetch('/rest/v1/profiles', {
-          method: 'POST',
-          headers: {
-            'Prefer': 'return=representation, resolution=merge-duplicates'
-          },
-          body: JSON.stringify({ phone_number: cleanPhone })
-        })
-
-        const userProfile = profileResponse[0]
+        const { data: userProfile, error: profileError } = await supabase
+          .from('profiles')
+          .upsert({ phone_number: cleanPhone }, { onConflict: 'phone_number' })
+          .select()
+          .single()
+        if (profileError) throw profileError
 
         // Сохраняем сессию локально
         localStorage.setItem('user_session', JSON.stringify(userProfile))

@@ -4,21 +4,42 @@ const SUPABASE_URL = import.meta.env.VITE_SUPABASE_URL || 'https://demo-project.
 const SUPABASE_ANON_KEY = import.meta.env.VITE_SUPABASE_ANON_KEY || 'demo-anon-key';
 
 const createFallbackClient = () => {
-  const makeQuery = (tableName) => ({
-    select: () => makeQuery(tableName),
-    eq: () => makeQuery(tableName),
-    order: () => Promise.resolve({ data: [], error: null }),
-    limit: () => Promise.resolve({ data: [], error: null }),
-    single: () => Promise.resolve({ data: null, error: null }),
-    insert: () => Promise.resolve({ data: [], error: null }),
-    update: () => Promise.resolve({ data: [], error: null }),
-    delete: () => Promise.resolve({ data: [], error: null }),
-    upsert: () => Promise.resolve({ data: [], error: null }),
-    then: (resolve) => resolve({ data: [], error: null }),
-  });
+  const makeQuery = () => {
+    const query = {
+      select: () => query,
+      eq: () => query,
+      neq: () => query,
+      gt: () => query,
+      gte: () => query,
+      lt: () => query,
+      lte: () => query,
+      is: () => query,
+      in: () => query,
+      contains: () => query,
+      containedBy: () => query,
+      overlaps: () => query,
+      like: () => query,
+      ilike: () => query,
+      not: () => query,
+      or: () => query,
+      filter: () => query,
+      order: () => query,
+      limit: () => query,
+      range: () => query,
+      insert: () => query,
+      update: () => query,
+      delete: () => query,
+      upsert: () => query,
+      single: async () => ({ data: null, error: null }),
+      maybeSingle: async () => ({ data: null, error: null }),
+      then: (resolve, reject) => Promise.resolve({ data: [], error: null }).then(resolve, reject),
+    };
+
+    return query;
+  };
 
   return {
-    from: () => makeQuery('fallback_table'),
+    from: () => makeQuery(),
     auth: {
       getUser: async () => ({ data: { user: null }, error: null }),
       getSession: async () => ({ data: { session: null }, error: null }),

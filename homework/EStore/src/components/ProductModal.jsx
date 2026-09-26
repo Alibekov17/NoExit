@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function ProductModal({ product, onClose, onAddToCart }) {
   if (!product) return null;
 
